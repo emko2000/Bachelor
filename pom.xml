@@ -6,12 +6,12 @@
 	<artifactId>matsim-example-project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>MATSim example project</name>
-	<description>MATSim example project</description>
+	<name>BA-Emre</name>
+	<description>BA-Emre</description>
 
 	<properties>
 		<!-- release -->
-		<matsim.version>14.0</matsim.version>
+		<matsim.version>15.0-PR1952</matsim.version>
 
 		<!-- PR (= pull request) release -->
 		<!--		<matsim.version>13.1-PR1536</matsim.version> -->
