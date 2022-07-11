@@ -13,7 +13,8 @@ public class DemandGeneration {
 		Path demandCSVLocation = Path.of("scenarios/freightDemandGeneration/testDemandCSV.csv");
 		Path shapeFilePath = Path.of("scenarios/freightDemandGeneration/testShape/testShape.shp");
 		String populationLocation = "scenarios/freightDemandGeneration/testPopulation.xml";
-		String network = "https://raw.githubusercontent.com/matsim-org/matsim-libs/master/examples/scenarios/freight-chessboard-9x9/grid9x9.xml";
+		String network = "https://svn.vsp.tu-berlin.de/repos/public-svn/matsim/scenarios/countries/de/berlin/berlin-v5.5-10pct/input/berlin-v5.5-network.xml.gz";
+//		String network = "https://raw.githubusercontent.com/matsim-org/matsim-libs/master/examples/scenarios/freight-chessboard-9x9/grid9x9.xml";
 		new FreightDemandGeneration().execute(
 				"--output", output.toString(),
 				"--carrierOption", "createCarriersFromCSV",
