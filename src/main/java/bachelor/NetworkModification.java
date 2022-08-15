@@ -25,7 +25,7 @@ public class NetworkModification {
 		Network network = NetworkUtils.readNetwork(networkLoc);
 
 		//read shapefile
-		String shapefile = "C:\\Users\\Asus\\Downloads\\Bezirke_-_Berlin\\Berlin_Bezirke.shp";
+		String shapefile = "scenarios/freightDemandGeneration/testShape/Bezirke_-_Berlin/Berlin_Bezirke.shp";
 
 		//transform coordinates from the shapefile to matsim coordinates
 		var transformation = TransformationFactory.getCoordinateTransformation("EPSG:3857", "EPSG:31468");
