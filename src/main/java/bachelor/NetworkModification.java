@@ -7,6 +7,7 @@ import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.core.network.NetworkUtils;
 import org.matsim.core.utils.geometry.geotools.MGC;
+import org.matsim.core.utils.geometry.transformations.GeotoolsTransformation;
 import org.matsim.core.utils.geometry.transformations.TransformationFactory;
 import org.matsim.core.utils.gis.ShapeFileReader;
 import org.locationtech.jts.geom.Geometry;
@@ -20,6 +21,8 @@ public class NetworkModification {
 
 	public static void main(String[] args) {
 
+		int counter = 0;
+
 		//read network file
 		String networkLoc = "https://svn.vsp.tu-berlin.de/repos/public-svn/matsim/scenarios/countries/de/berlin/berlin-v5.5-10pct/input/berlin-v5.5-network.xml.gz";
 		Network network = NetworkUtils.readNetwork(networkLoc);
@@ -28,7 +31,8 @@ public class NetworkModification {
 		String shapefile = "scenarios/freightDemandGeneration/testShape/Bezirke_-_Berlin/Berlin_Bezirke.shp";
 
 		//transform coordinates from the shapefile to matsim coordinates
-		var transformation = TransformationFactory.getCoordinateTransformation("EPSG:3857", "EPSG:31468");
+		//var transformation = TransformationFactory.getCoordinateTransformation("EPSG:31468", "EPSG:3857");
+		var transformation = new GeotoolsTransformation("EPSG:31468", "EPSG:3857");
 
 
 
@@ -42,15 +46,20 @@ public class NetworkModification {
 		//Transfer the geotoolcoordinate to matsim coordinate
 		for (var geometryList : shapeFileGeometries){
 			var coord = geometryList.getCoordinate();
-			var geotoolscoord = MGC.coordinate2Coord(coord);
-			var transformCoord = transformation.transform(geotoolscoord);
+			//var transformCoord = transformation.transform(coord);
+			var geotoolspoint = MGC.coordinate2Point(coord);
 
 
-			//if shapeFileGeometries.contains(network){
-			//			?add the Link?
-			// };
+
+			if (shapeFileGeometries.contains(network)){
+						counter = counter + 1;
+						Link newLink = network.getFactory().createLink(Id.createLinkId(counter), network.getNodes().get(Id.createNodeId("100027768")), network.getNodes().get(Id.createNodeId(shapeFileGeometries)));
+						newLink.setAllowedModes(Set.of("drone"));
+						network.addLink(newLink);
+			}
 		}
-		var test = shapeFileGeometries.get(0);
+		var test = shapeFileGeometries;
+		System.out.println(test);
 
 		/*TODO:
 		 * shape file Berlin Bezirke einlesen
@@ -65,13 +74,6 @@ public class NetworkModification {
 		 *
 		 */
 
-		Link newLink = network.getFactory().createLink(Id.createLinkId("emretestlink"), network.getNodes().get(Id.createNodeId("100027768")), network.getNodes().get(Id.createNodeId("100149263")));
-
-		newLink.setAllowedModes(Set.of("drone"));
-
-		network.addLink(newLink);
-
-		System.out.println(test);
 	}
 
 
