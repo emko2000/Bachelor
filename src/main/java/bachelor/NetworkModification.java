@@ -1,11 +1,11 @@
 package bachelor;
 
 import java.util.Set;
-
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.core.network.NetworkUtils;
+import org.locationtech.jts.geom.Coordinate;
 import org.matsim.core.utils.geometry.geotools.MGC;
 import org.matsim.core.utils.geometry.transformations.GeotoolsTransformation;
 import org.matsim.core.utils.geometry.transformations.TransformationFactory;
@@ -44,8 +44,8 @@ public class NetworkModification {
 				.collect(Collectors.toList());
 
 		//Transfer the geotoolcoordinate to matsim coordinate
-		for (var geometryList : shapeFileGeometries){
-			var coord = geometryList.getCoordinate();
+		for (var geometryList : shapeFileGeometries.getCoordinates().values()){
+			//var coord = geometryList.getCoordinate();
 			//var transformCoord = transformation.transform(coord);
 			var geotoolspoint = MGC.coordinate2Point(coord);
 
