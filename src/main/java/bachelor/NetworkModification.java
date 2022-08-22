@@ -36,18 +36,18 @@ public class NetworkModification {
 
 
 
-		var features = ShapeFileReader.getAllFeatures(shapefile);
+		var feature = ShapeFileReader.getAllFeatures(shapefile);
 
 		// Create a list for the coordinates
-		var shapeFileGeometries = features.stream()
-				.map(simpleFeature -> (Geometry) simpleFeature.getDefaultGeometry())
-				.collect(Collectors.toList());
+		//var shapeFileGeometries = features.stream()
+		//		.map(simpleFeature -> (Geometry) simpleFeature.getDefaultGeometry())
+		//		.collect(Collectors.toList());
 
 		//Transfer the geotoolcoordinate to matsim coordinate
-		for (var geometryList : shapeFileGeometries.getCoordinates().values()){
-			//var coord = geometryList.getCoordinate();
-			//var transformCoord = transformation.transform(coord);
-			var geotoolspoint = MGC.coordinate2Point(coord);
+		for (var geometryList : feature){
+			var coord = geometryList.getCoordinate();
+			var transformCoord = transformation.transform(coord);
+			var geotoolspoint = MGC.coordinate2Point(geometryList);
 
 
 
