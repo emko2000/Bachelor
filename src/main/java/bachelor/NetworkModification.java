@@ -31,41 +31,51 @@ public class NetworkModification {
 		String shapefile = "scenarios/freightDemandGeneration/testShape/Bezirke_-_Berlin/Berlin_Bezirke.shp";
 
 		//transform coordinates from the shapefile to matsim coordinates
-		//var transformation = TransformationFactory.getCoordinateTransformation("EPSG:31468", "EPSG:3857");
-		var transformation = new GeotoolsTransformation("EPSG:31468", "EPSG:3857");
-
-
-
+		var transformation = TransformationFactory.getCoordinateTransformation("EPSG:31468", "EPSG:3857");
 		var feature = ShapeFileReader.getAllFeatures(shapefile);
 
-		// Create a list for the coordinates
-		//var shapeFileGeometries = features.stream()
-		//		.map(simpleFeature -> (Geometry) simpleFeature.getDefaultGeometry())
-		//		.collect(Collectors.toList());
-
-		//Transfer the geotoolcoordinate to matsim coordinate
-		for (var geometryList : feature){
-			var coord = geometryList.getCoordinate();
-			var transformCoord = transformation.transform(coord);
-			var geotoolspoint = MGC.coordinate2Point(geometryList);
 
 
+		for (var networkLink : network.getLinks().values()) {
 
-			if (shapeFileGeometries.contains(network)){
+			var freespeed = networkLink.getFreespeed();
+
+			if (freespeed<8) {
+
+				//Transfer the geotoolcoordinate to matsim coordinate
+				for (var node : network.getNodes().values()) {
+
+					var coord = node.getCoord();
+					var transformCoord = transformation.transform(coord);
+					var geotoolspoint = MGC.coord2Point(transformCoord);
+
+
+					if (((Geometry) feature.iterator().next().getDefaultGeometry()).contains(geotoolspoint)) {
+
 						counter = counter + 1;
-						Link newLink = network.getFactory().createLink(Id.createLinkId(counter), network.getNodes().get(Id.createNodeId("100027768")), network.getNodes().get(Id.createNodeId(shapeFileGeometries)));
+
+						Link newLink = network.getFactory().createLink(Id.createLinkId("drone_" + counter), network.getNodes().get(Id.createNodeId("100027768")), node);
+						Link newLinkback = network.getFactory().createLink(Id.createLinkId("drone_back_" + counter), node, network.getNodes().get(Id.createNodeId("100027768")));
 						newLink.setAllowedModes(Set.of("drone"));
+						newLinkback.setAllowedModes(Set.of("drone"));
 						network.addLink(newLink);
+						network.addLink(newLinkback);
+
+					}
+
+
+				}
+
 			}
 		}
-		var test = shapeFileGeometries;
-		System.out.println(test);
+
+		NetworkUtils.writeNetwork(network, "network2.xml.gz");
+
+	}
+
 
 		/*TODO:
-		 * shape file Berlin Bezirke einlesen
-		 * Links filtern nach Bezirk Charlottenburg-Wilmersdorf
-		 * ^(mit einer schleife eine knoten durchgehen und gucken ob sie im shape file ist, wenn ja dann link speichern)
-		 * neue Links für Drohne erzeugen (Hin-und Rückweg)
+		 *
 		 *
 		 * Hinweis: Iteration 300, Zeit in Sekunde, Infinite auswählen, csv nach excel kopieren und einfügen,
 		 * in csv-file sind depots
@@ -74,7 +84,7 @@ public class NetworkModification {
 		 *
 		 */
 
-	}
-
-
 }
+
+
+
