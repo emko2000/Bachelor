@@ -1,20 +1,17 @@
 package bachelor;
 
+import java.util.ArrayList;
 import java.util.Set;
+import org.matsim.api.core.v01.Coord;
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.core.network.NetworkUtils;
-import org.locationtech.jts.geom.Coordinate;
 import org.matsim.core.utils.geometry.geotools.MGC;
-import org.matsim.core.utils.geometry.transformations.GeotoolsTransformation;
 import org.matsim.core.utils.geometry.transformations.TransformationFactory;
 import org.matsim.core.utils.gis.ShapeFileReader;
 import org.locationtech.jts.geom.Geometry;
-import org.matsim.utils.gis.shp2matsim.ShpGeometryUtils;
-import org.matsim.freightDemandGeneration.FreightDemandGeneration;
-import java.nio.file.Path;
-import java.util.stream.Collectors;
+
 
 
 public class NetworkModification {
@@ -35,44 +32,56 @@ public class NetworkModification {
 		var feature = ShapeFileReader.getAllFeatures(shapefile);
 
 
+		//depot coordinate
+		var depot_coordinates = new Coord(4588996.5,5828160);
+		var depot_node = network.getFactory().createNode(Id.createNodeId("depot_node"), depot_coordinates);
+		network.addNode(depot_node);
 
-		for (var networkLink : network.getLinks().values()) {
+		var links = new ArrayList<Link>();
 
-			var freespeed = networkLink.getFreespeed();
+		//Transfer the geotoolcoordinate to matsim coordinate
+		for (var Link : network.getLinks().values()) {
 
-			if (freespeed<8) {
+			//    m/s
+			var freespeed = Link.getFreespeed();
 
-				//Transfer the geotoolcoordinate to matsim coordinate
-				for (var node : network.getNodes().values()) {
-
-					var coord = node.getCoord();
-					var transformCoord = transformation.transform(coord);
-					var geotoolspoint = MGC.coord2Point(transformCoord);
+			var node = Link.getFromNode();
+			var coord = node.getCoord();
+			var transformCoord = transformation.transform(coord);
+			var geotoolspoint = MGC.coord2Point(transformCoord);
 
 
-					if (((Geometry) feature.iterator().next().getDefaultGeometry()).contains(geotoolspoint)) {
+				if (((Geometry) feature.iterator().next().getDefaultGeometry()).contains(geotoolspoint)) {
 
-						counter = counter + 1;
 
-						Link newLink = network.getFactory().createLink(Id.createLinkId("drone_" + counter), network.getNodes().get(Id.createNodeId("100027768")), node);
-						Link newLinkback = network.getFactory().createLink(Id.createLinkId("drone_back_" + counter), node, network.getNodes().get(Id.createNodeId("100027768")));
-						newLink.setAllowedModes(Set.of("drone"));
-						newLinkback.setAllowedModes(Set.of("drone"));
-						network.addLink(newLink);
-						network.addLink(newLinkback);
+					if (freespeed<=0.5) {
+
+					counter = counter + 1;
+
+					Link newLink = network.getFactory().createLink(Id.createLinkId("drone_" + counter), depot_node, node);
+					Link newLinkback = network.getFactory().createLink(Id.createLinkId("drone_back_" + counter), node, depot_node);
+					newLink.setAllowedModes(Set.of("drone"));
+					newLinkback.setAllowedModes(Set.of("drone"));
+					links.add(newLink);
+					links.add(newLinkback);
+
+					System.out.println("added new link");
+
 
 					}
 
-
 				}
 
-			}
+
+
 		}
 
+		for (var link : links) {
+			network.addLink(link);
+		}
+		System.out.println(links.size());
+
 		NetworkUtils.writeNetwork(network, "network2.xml.gz");
-
-	}
-
 
 		/*TODO:
 		 *
@@ -84,7 +93,9 @@ public class NetworkModification {
 		 *
 		 */
 
+
+
+	}
+
 }
-
-
 
