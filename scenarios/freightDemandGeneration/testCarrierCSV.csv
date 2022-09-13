@@ -1,4 +1,3 @@
-carrierName	vehicleTypes	numberOfDepots	selectedVehicleDepots	areaOfAdditonalDepots	fixedNumberOfVehilcePerTypeAndLocation	fleetSize	vehicleStartTime	vehicleEndTime 	jspritIterations
-testCarrier1	testVehicle1;testVehicle2	2	2;4     infinite	3600	50000	10
-testCarrier3	testVehicle1	2	6	area1   infinite	50000	80000
-testCarrier2	testVehicle2	3	3		3   finite	3600	50000	15
+carrierName	vehicleTypes	numberOfDepots	selectedVehicleDepots	areaOfAdditonalDepots	fixedNumberOfVehilcePerTypeAndLocation	fleetSize	vehicleStartTime	vehicleEndTime	jspritIterations
+testCarrier1	testVehicle3	1	drone_1	Charlottenburg-Wilmersdorf		infinite	3600	50000	300
+
