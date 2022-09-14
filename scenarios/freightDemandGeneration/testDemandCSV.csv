@@ -1,4 +1,8 @@
 carrierName	demandToDistribute	numberOfJobs	shareOfPopulationWithFirstJobElement	areasFirstJobElement	numberOfFirstJobElementLocations	locationsOfFirstJobElement	firstJobElementTimePerUnit	firstJobElementStartTime	firstJobElementEndTime	shareOfPopulationWithSecondJobElement	areasSecondJobElement	numberOfSecondJobElementLocations	locationsOfSecondJobElement	secondJobElementTimePerUnit	secondJobElementStartTime	secondJobElementEndTime
-testCarrier1	0	4		Charlottenburg-Wilmersdorf			180	3000	13000
+testCarrier1	15	7			1		200	11000	44000			2		200	20000	40000
+
+
+
+
 
 

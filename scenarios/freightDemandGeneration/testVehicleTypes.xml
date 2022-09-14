@@ -48,7 +48,7 @@
 
 	<vehicleType id="testVehicle3">
 
-		<description>testVehicle1</description>
+		<description>testVehicle3</description>
 		<capacity seats="1" standingRoomInPersons="0" other="24.0">
 
 		</capacity>

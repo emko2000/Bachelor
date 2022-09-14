@@ -25,7 +25,7 @@ public class NetworkModification {
 		Network network = NetworkUtils.readNetwork(networkLoc);
 
         //test-network
-        Network test_network = NetworkUtils.createNetwork();
+        //Network test_network = NetworkUtils.createNetwork();
 
 		//read shapefile
 		String shapefile = "scenarios/freightDemandGeneration/testShape/Bezirke_-_Berlin/Berlin_Bezirke.shp";
@@ -34,15 +34,24 @@ public class NetworkModification {
 		var transformation = TransformationFactory.getCoordinateTransformation("EPSG:31468", "EPSG:3857");
 		var feature = ShapeFileReader.getAllFeatures(shapefile);
 
-
+		//create depot link
 		//depot coordinate
-		var depot_coordinates = new Coord(4588996.5,5828160);
-		var depot_node = network.getFactory().createNode(Id.createNodeId("depot_node"), depot_coordinates);
-		network.addNode(depot_node);
+		var depot_coordinates_start = new Coord(4588996.5,5828160);
+		var depot_node_start = network.getFactory().createNode(Id.createNodeId("depot_node_start"), depot_coordinates_start);
+		network.addNode(depot_node_start);
+
+		var depot_coordinates_end = new Coord(4588998.5,5828160);
+		var depot_node_end = network.getFactory().createNode(Id.createNodeId("depot_node_end"), depot_coordinates_end);
+		network.addNode(depot_node_end);
+
+		Link depotLink = network.getFactory().createLink(Id.createLinkId("depotLink"), depot_node_start, depot_node_end);
+		depotLink.setAllowedModes(Set.of("drone"));
+		network.addLink(depotLink);
+
 
         //Test-Depot
-        test_network.addNode(depot_node);
-
+        //test_network.addNode(depot_node_start);
+        //test_network.addNode(depot_node_end);
 
 		//is giving the values of the link
         for (var node : network.getNodes().values()) {
@@ -70,17 +79,17 @@ public class NetworkModification {
 
                         counter = counter + 1;
 
-                        Link newLink = network.getFactory().createLink(Id.createLinkId("drone_" + counter), depot_node, node);
-                        Link newLinkback = network.getFactory().createLink(Id.createLinkId("drone_back_" + counter), node, depot_node);
-                            //Link newLink = test_network.getFactory().createLink(Id.createLinkId("drone" + counter), depot_node, node);
-                            //Link newLinkback = test_network.getFactory().createLink(Id.createLinkId("drone_back_" + counter), node, depot_node);
+                        Link newLink = network.getFactory().createLink(Id.createLinkId("drone_" + counter), depot_node_start, node);
+                        Link newLinkback = network.getFactory().createLink(Id.createLinkId("drone_back_" + counter), node, depot_node_end);
+                            //Link newLink = test_network.getFactory().createLink(Id.createLinkId("drone" + counter), depot_node_start, node);
+                            //Link newLinkback = test_network.getFactory().createLink(Id.createLinkId("drone_back_" + counter), node, depot_node_end);
                         newLink.setAllowedModes(Set.of("drone"));
                         newLinkback.setAllowedModes(Set.of("drone"));
 						newLink.setFreespeed(25);
 						newLinkback.setFreespeed(25);
-							test_network.addNode(node);
-							test_network.addLink(newLink);
-							test_network.addLink(newLinkback);
+							//test_network.addNode(node);
+							//test_network.addLink(newLink);
+							//test_network.addLink(newLinkback);
 							network.addLink(newLink);
 							network.addLink(newLinkback);
 
