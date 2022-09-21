@@ -25,7 +25,7 @@ public class NetworkModification {
 		Network network = NetworkUtils.readNetwork(networkLoc);
 
         //test-network
-        //Network test_network = NetworkUtils.createNetwork();
+        Network test_network = NetworkUtils.createNetwork();
 
 		//read shapefile
 		String shapefile = "scenarios/freightDemandGeneration/testShape/Bezirke_-_Berlin/Berlin_Bezirke.shp";
@@ -44,14 +44,15 @@ public class NetworkModification {
 		var depot_node_end = network.getFactory().createNode(Id.createNodeId("depot_node_end"), depot_coordinates_end);
 		network.addNode(depot_node_end);
 
-		Link depotLink = network.getFactory().createLink(Id.createLinkId("depotLink"), depot_node_start, depot_node_end);
+		Link depotLink = network.getFactory().createLink(Id.createLinkId("depotLink"), depot_node_end, depot_node_start);
 		depotLink.setAllowedModes(Set.of("drone"));
 		network.addLink(depotLink);
 
-
         //Test-Depot
-        //test_network.addNode(depot_node_start);
-        //test_network.addNode(depot_node_end);
+        test_network.addNode(depot_node_start);
+        test_network.addNode(depot_node_end);
+		depotLink.setAllowedModes(Set.of("drone"));
+		test_network.addLink(depotLink);
 
 		//is giving the values of the link
         for (var node : network.getNodes().values()) {
@@ -79,17 +80,17 @@ public class NetworkModification {
 
                         counter = counter + 1;
 
-                        Link newLink = network.getFactory().createLink(Id.createLinkId("drone_" + counter), depot_node_start, node);
-                        Link newLinkback = network.getFactory().createLink(Id.createLinkId("drone_back_" + counter), node, depot_node_end);
-                            //Link newLink = test_network.getFactory().createLink(Id.createLinkId("drone" + counter), depot_node_start, node);
-                            //Link newLinkback = test_network.getFactory().createLink(Id.createLinkId("drone_back_" + counter), node, depot_node_end);
+                        //Link newLink = network.getFactory().createLink(Id.createLinkId("drone_" + counter), depot_node_start, node);
+                        //Link newLinkback = network.getFactory().createLink(Id.createLinkId("drone_back_" + counter), node, depot_node_end);
+                            Link newLink = test_network.getFactory().createLink(Id.createLinkId("drone" + counter), depot_node_start, node);
+                            Link newLinkback = test_network.getFactory().createLink(Id.createLinkId("drone_back_" + counter), node, depot_node_end);
                         newLink.setAllowedModes(Set.of("drone"));
                         newLinkback.setAllowedModes(Set.of("drone"));
 						newLink.setFreespeed(25);
 						newLinkback.setFreespeed(25);
-							//test_network.addNode(node);
-							//test_network.addLink(newLink);
-							//test_network.addLink(newLinkback);
+							test_network.addNode(node);
+							test_network.addLink(newLink);
+							test_network.addLink(newLinkback);
 							network.addLink(newLink);
 							network.addLink(newLinkback);
 
@@ -104,7 +105,7 @@ public class NetworkModification {
 		}
 
 
-		NetworkUtils.writeNetwork(network, "network2.xml.gz");
+		NetworkUtils.writeNetwork(test_network, "network2.xml.gz");
 
 		/*TODO:
 		 *
@@ -118,8 +119,13 @@ public class NetworkModification {
 		 * Depot-Link erstellen und Depot-Link in testCarrierCSV einfügen
 		 * Depot-Link: Ein Startpunkt und Endpunkt für Drohnen erstellen
 		 *
+		 *	plausible Benennung
+		 * 	shipments erstellen mit depotLink, size and capacity gleich 1, Start 8 Uhr und Ende 20 Uhr
+		 *	Demandfile angucken und ändern
 		 *
 		 *
+		 * Carrierfile anpassen (bis 20 Uhr)
+		 * Zeiten dichter takten oder mehr delivery, damit die mehr Drohnen starten
 		 */
 
 

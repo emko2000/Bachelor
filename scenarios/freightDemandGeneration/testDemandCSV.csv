@@ -1,8 +1,4 @@
 carrierName	demandToDistribute	numberOfJobs	shareOfPopulationWithFirstJobElement	areasFirstJobElement	numberOfFirstJobElementLocations	locationsOfFirstJobElement	firstJobElementTimePerUnit	firstJobElementStartTime	firstJobElementEndTime	shareOfPopulationWithSecondJobElement	areasSecondJobElement	numberOfSecondJobElementLocations	locationsOfSecondJobElement	secondJobElementTimePerUnit	secondJobElementStartTime	secondJobElementEndTime
-testCarrier1	15	7			1		200	11000	44000			2		200	20000	40000
-
-
-
-
+testCarrier1	100	100		Charlottenburg-Wilmersdorf	1	depotLink	60	28800	28860		Charlottenburg-Wilmersdorf			60	28800	33000
 
 
