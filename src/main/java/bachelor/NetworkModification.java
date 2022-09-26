@@ -45,6 +45,7 @@ public class NetworkModification {
 		network.addNode(depot_node_end);
 
 		Link depotLink = network.getFactory().createLink(Id.createLinkId("depotLink"), depot_node_end, depot_node_start);
+		depotLink.setCapacity(50);
 		depotLink.setAllowedModes(Set.of("drone"));
 		network.addLink(depotLink);
 

@@ -46,9 +46,9 @@
 		<flowEfficiencyFactor factor="1.0"/>
 	</vehicleType>
 
-	<vehicleType id="testVehicle3">
+	<vehicleType id="testDrone1">
 
-		<description>testVehicle3</description>
+		<description>testDrone1</description>
 		<capacity seats="0" standingRoomInPersons="0" other="1.0">
 
 		</capacity>

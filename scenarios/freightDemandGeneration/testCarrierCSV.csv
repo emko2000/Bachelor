@@ -1,5 +1,5 @@
 carrierName	vehicleTypes	numberOfDepots	selectedVehicleDepots	areaOfAdditonalDepots	fixedNumberOfVehilcePerTypeAndLocation	fleetSize	vehicleStartTime	vehicleEndTime	jspritIterations
-testCarrier1	testVehicle3	1	depotLink	Charlottenburg-Wilmersdorf		infinite	28800	33000	10
+droneCarrier1	testDrone1	1	depotLink	Charlottenburg-Wilmersdorf		infinite	28800	72000	10
 
 
 
