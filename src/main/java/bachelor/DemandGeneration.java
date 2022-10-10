@@ -18,7 +18,8 @@ public class DemandGeneration {
 		//brauche ich nicht!!
 		//String populationLocation = "scenarios/freightDemandGeneration/testPopulation.xml";
 		//das neue netzwerk einfügen (mit drohnen)
-		String network = "C:\\Users\\Asus\\Documents\\Bachelor3\\network2.xml.gz";
+		//String network = "C:\\Users\\Asus\\Documents\\Bachelor3\\network_drone.xml.gz";
+		String network = "C:\\Users\\Asus\\Documents\\Bachelor3\\network_DHL.xml.gz";
 //		String network = "https://svn.vsp.tu-berlin.de/repos/public-svn/matsim/scenarios/countries/de/berlin/berlin-v5.5-10pct/input/berlin-v5.5-network.xml.gz";
 //		String network = "https://raw.githubusercontent.com/matsim-org/matsim-libs/master/examples/scenarios/freight-chessboard-9x9/grid9x9.xml";
 		new FreightDemandGeneration().execute(

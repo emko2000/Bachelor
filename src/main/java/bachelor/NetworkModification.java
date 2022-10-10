@@ -24,8 +24,9 @@ public class NetworkModification {
 		String networkLoc = "https://svn.vsp.tu-berlin.de/repos/public-svn/matsim/scenarios/countries/de/berlin/berlin-v5.5-10pct/input/berlin-v5.5-network.xml.gz";
 		Network network = NetworkUtils.readNetwork(networkLoc);
 
-        //test-network
-        Network test_network = NetworkUtils.createNetwork();
+        //drone-network
+        Network drone_network = NetworkUtils.createNetwork();
+
 
 		//read shapefile
 		String shapefile = "scenarios/freightDemandGeneration/testShape/Bezirke_-_Berlin/Berlin_Bezirke.shp";
@@ -36,24 +37,31 @@ public class NetworkModification {
 
 		//create depot link
 		//depot coordinate
-		var depot_coordinates_start = new Coord(4588996.5,5828160);
+		var depot_coordinates_start = new Coord(4588956.5,5828160);
 		var depot_node_start = network.getFactory().createNode(Id.createNodeId("depot_node_start"), depot_coordinates_start);
-		network.addNode(depot_node_start);
 
-		var depot_coordinates_end = new Coord(4588998.5,5828160);
+		var depot_coordinates_end = new Coord(4589143.5,5828153);
 		var depot_node_end = network.getFactory().createNode(Id.createNodeId("depot_node_end"), depot_coordinates_end);
-		network.addNode(depot_node_end);
 
 		Link depotLink = network.getFactory().createLink(Id.createLinkId("depotLink"), depot_node_end, depot_node_start);
-		depotLink.setCapacity(50);
+		depotLink.setCapacity(20000);
 		depotLink.setAllowedModes(Set.of("drone"));
-		network.addLink(depotLink);
 
-        //Test-Depot
-        test_network.addNode(depot_node_start);
-        test_network.addNode(depot_node_end);
+		//Add depot to dhl-network
+		var depottest = network.getNodes().get(Id.createNodeId(27177359));
+		var depottest2 = network.getNodes().get(Id.createNodeId(27177345));
+
+		//Link depotLink_dhl = network.getFactory().createLink(Id.createLinkId("depotLink"), Id.createNodeId(27177359), Id.createNodeId(27177345));
+		Link depotLink_dhl = network.getFactory().createLink(Id.createLinkId("depotLink_dhl"),depottest, depottest2);
+		depotLink_dhl.setCapacity(1000);
+		depotLink_dhl.setAllowedModes(Set.of("drone"));
+		network.addLink(depotLink_dhl);
+
+        //Add Drone-Depot to drone_network
+        drone_network.addNode(depot_node_start);
+        drone_network.addNode(depot_node_end);
 		depotLink.setAllowedModes(Set.of("drone"));
-		test_network.addLink(depotLink);
+		drone_network.addLink(depotLink);
 
 		//is giving the values of the link
         for (var node : network.getNodes().values()) {
@@ -81,19 +89,17 @@ public class NetworkModification {
 
                         counter = counter + 1;
 
-                        //Link newLink = network.getFactory().createLink(Id.createLinkId("drone_" + counter), depot_node_start, node);
-                        //Link newLinkback = network.getFactory().createLink(Id.createLinkId("drone_back_" + counter), node, depot_node_end);
-                            Link newLink = test_network.getFactory().createLink(Id.createLinkId("drone" + counter), depot_node_start, node);
-                            Link newLinkback = test_network.getFactory().createLink(Id.createLinkId("drone_back_" + counter), node, depot_node_end);
-                        newLink.setAllowedModes(Set.of("drone"));
+                        Link newLink = drone_network.getFactory().createLink(Id.createLinkId("drone" + counter), depot_node_start, node);
+						Link newLinkback = drone_network.getFactory().createLink(Id.createLinkId("drone_back_" + counter), node, depot_node_end);
+
+						newLink.setAllowedModes(Set.of("drone"));
                         newLinkback.setAllowedModes(Set.of("drone"));
 						newLink.setFreespeed(25);
 						newLinkback.setFreespeed(25);
-							test_network.addNode(node);
-							test_network.addLink(newLink);
-							test_network.addLink(newLinkback);
-							network.addLink(newLink);
-							network.addLink(newLinkback);
+
+						drone_network.addNode(node);
+						drone_network.addLink(newLink);
+						drone_network.addLink(newLinkback);
 
                         System.out.println("added new link");
 
@@ -102,11 +108,11 @@ public class NetworkModification {
 			}
 
 
-
 		}
 
 
-		NetworkUtils.writeNetwork(test_network, "network2.xml.gz");
+		//NetworkUtils.writeNetwork(drone_network, "network_drone.xml.gz");
+		NetworkUtils.writeNetwork(network, "network_DHL.xml.gz");
 
 		/*TODO:
 		 *
