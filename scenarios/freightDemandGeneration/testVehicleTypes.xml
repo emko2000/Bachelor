@@ -5,11 +5,11 @@
 	<vehicleType id="testVehicleDHL">
 
 		<description>testVehicleDHL</description>
-		<capacity seats="1" standingRoomInPersons="0" other="10.0">
+		<capacity seats="1" standingRoomInPersons="0" other="200.0">
 
 		</capacity>
-		<length meter="7.5"/>
-		<width meter="1.8"/>
+		<length meter="7.0"/>
+		<width meter="2.14"/>
 		<engineInformation>
 			<attributes>
 				<attribute name="HbefaTechnology" class="java.lang.String">diesel</attribute>

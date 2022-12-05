@@ -1,6 +1,2 @@
 carrierName	vehicleTypes	numberOfDepots	selectedVehicleDepots	areaOfAdditonalDepots	fixedNumberOfVehilcePerTypeAndLocation	fleetSize	vehicleStartTime	vehicleEndTime	jspritIterations
-droneCarrier1	testVehicleDHL	1	depotLink_dhl	Charlottenburg-Wilmersdorf		infinite	28800	72000	10
-
-
-
-
+droneCarrier1	testDrone1	1	depotLink	Charlottenburg-Wilmersdorf		infinite	28800	57600	10

@@ -42,19 +42,18 @@ public class NetworkModification {
 
 		var depot_coordinates_end = new Coord(4589143.5,5828153);
 		var depot_node_end = network.getFactory().createNode(Id.createNodeId("depot_node_end"), depot_coordinates_end);
-
+        //Add depot to drone-network
 		Link depotLink = network.getFactory().createLink(Id.createLinkId("depotLink"), depot_node_end, depot_node_start);
 		depotLink.setCapacity(20000);
+		depotLink.setFreespeed(30);
 		depotLink.setAllowedModes(Set.of("drone"));
 
 		//Add depot to dhl-network
 		var depottest = network.getNodes().get(Id.createNodeId(27177359));
 		var depottest2 = network.getNodes().get(Id.createNodeId(27177345));
-
-		//Link depotLink_dhl = network.getFactory().createLink(Id.createLinkId("depotLink"), Id.createNodeId(27177359), Id.createNodeId(27177345));
 		Link depotLink_dhl = network.getFactory().createLink(Id.createLinkId("depotLink_dhl"),depottest, depottest2);
-		depotLink_dhl.setCapacity(1000);
-		depotLink_dhl.setAllowedModes(Set.of("drone"));
+		depotLink_dhl.setCapacity(20000);
+		depotLink_dhl.setFreespeed(30);
 		network.addLink(depotLink_dhl);
 
         //Add Drone-Depot to drone_network
@@ -83,7 +82,6 @@ public class NetworkModification {
 
                 if (mt.matches()) {
 
-                    System.out.println("failed");
 
                 } else {
 
@@ -94,8 +92,8 @@ public class NetworkModification {
 
 						newLink.setAllowedModes(Set.of("drone"));
                         newLinkback.setAllowedModes(Set.of("drone"));
-						newLink.setFreespeed(25);
-						newLinkback.setFreespeed(25);
+						newLink.setFreespeed(90);
+						newLinkback.setFreespeed(90);
 
 						drone_network.addNode(node);
 						drone_network.addLink(newLink);
@@ -111,8 +109,8 @@ public class NetworkModification {
 		}
 
 
-		//NetworkUtils.writeNetwork(drone_network, "network_drone.xml.gz");
-		NetworkUtils.writeNetwork(network, "network_DHL.xml.gz");
+		NetworkUtils.writeNetwork(drone_network, "network_drone.xml.gz");
+		///NetworkUtils.writeNetwork(network, "network_DHL.xml.gz");
 
 		/*TODO:
 		 *
