@@ -1,14 +1,14 @@
 package bachelor;
 
 import java.nio.file.Path;
-import java.util.concurrent.Callable;
 
+import org.matsim.application.MATSimAppCommand;
 import org.matsim.freightDemandGeneration.FreightDemandGeneration;
 
 import picocli.CommandLine;
 
 @CommandLine.Command(name = "generate-scenario-BA-Emre", showDefaultValues = true)
-public class DemandGeneration implements Callable<Integer>{
+public class DemandGeneration implements MATSimAppCommand{
 
 	@CommandLine.Option(names = "--output", description = "Path to output folder", defaultValue = "output/")
 	private Path output;
@@ -49,10 +49,10 @@ public class DemandGeneration implements Callable<Integer>{
 			//brauche ich nicht!!
 			//String populationLocation = "scenarios/freightDemandGeneration/testPopulation.xml";
 			//das neue netzwerk einfügen (mit drohnen)
-			String network = "C:\\Users\\Asus\\Documents\\Bachelor3\\network_drone.xml.gz";
+			network = "C:\\Users\\Asus\\Documents\\Bachelor3\\network_drone.xml.gz";
 			//network = "C:\\Users\\Asus\\Documents\\Bachelor3\\network_DHL.xml.gz";
-			//		String network = "https://svn.vsp.tu-berlin.de/repos/public-svn/matsim/scenarios/countries/de/berlin/berlin-v5.5-10pct/input/berlin-v5.5-network.xml.gz";
-			//		String network = "https://raw.githubusercontent.com/matsim-org/matsim-libs/master/examples/scenarios/freight-chessboard-9x9/grid9x9.xml";
+			//		network = "https://svn.vsp.tu-berlin.de/repos/public-svn/matsim/scenarios/countries/de/berlin/berlin-v5.5-10pct/input/berlin-v5.5-network.xml.gz";
+			//		network = "https://raw.githubusercontent.com/matsim-org/matsim-libs/master/examples/scenarios/freight-chessboard-9x9/grid9x9.xml";
 			combineSimilarJobs = "false";
 		}
 		new FreightDemandGeneration().execute(
