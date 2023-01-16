@@ -94,6 +94,8 @@ public class NetworkModification {
                         newLinkback.setAllowedModes(Set.of("drone"));
 						newLink.setFreespeed(90);
 						newLinkback.setFreespeed(90);
+						newLink.setCapacity(20000);
+						newLinkback.setCapacity(20000);
 
 						drone_network.addNode(node);
 						drone_network.addLink(newLink);
