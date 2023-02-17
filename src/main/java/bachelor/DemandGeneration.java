@@ -1,9 +1,15 @@
 package bachelor;
 
+import java.io.File;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 import org.matsim.application.MATSimAppCommand;
 import org.matsim.freightDemandGeneration.FreightDemandGeneration;
+import org.matsim.vsp.freightAnalysis.FreightAnalyse;
 
 import picocli.CommandLine;
 
@@ -77,6 +83,15 @@ public class DemandGeneration implements MATSimAppCommand{
 				"--populationSample", "0.5",
 				"--populationSamplingTo", "1.0",
 				"--defaultJspriIterations", "3");
+		
+		List<File> fileData = new ArrayList<>();
+		for (File file : Objects.requireNonNull(output.toFile().listFiles())) {
+			fileData.add(file);
+		}
+		Collections.sort(fileData);
+		File lastFile = fileData.get(fileData.size()-1);
+		String[] argsAnalysis = { lastFile.toString(), "true"};
+		FreightAnalyse.main(argsAnalysis);
 		return 0;
 	}
 }
