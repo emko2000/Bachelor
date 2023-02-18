@@ -1,9 +1,15 @@
 package bachelor;
 
+import java.io.File;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 import org.matsim.application.MATSimAppCommand;
 import org.matsim.freightDemandGeneration.FreightDemandGeneration;
+import org.matsim.vsp.freightAnalysis.FreightAnalyse;
 
 import picocli.CommandLine;
 
@@ -49,8 +55,8 @@ public class DemandGeneration implements MATSimAppCommand{
 			//brauche ich nicht!!
 			//String populationLocation = "scenarios/freightDemandGeneration/testPopulation.xml";
 			//das neue netzwerk einfügen (mit drohnen)
-			network = "C:\\Users\\Asus\\Documents\\Bachelor3\\network_drone.xml.gz";
-			//network = "C:\\Users\\Asus\\Documents\\Bachelor3\\network_DHL.xml.gz";
+			network = "C:\\Users\\Asus\\Documents\\Bachelor5\\network_drone.xml.gz";
+			//network = "C:\\Users\\Asus\\Documents\\Bachelor5\\network_DHL.xml.gz";
 			//		network = "https://svn.vsp.tu-berlin.de/repos/public-svn/matsim/scenarios/countries/de/berlin/berlin-v5.5-10pct/input/berlin-v5.5-network.xml.gz";
 			//		network = "https://raw.githubusercontent.com/matsim-org/matsim-libs/master/examples/scenarios/freight-chessboard-9x9/grid9x9.xml";
 			combineSimilarJobs = "false";
@@ -77,6 +83,15 @@ public class DemandGeneration implements MATSimAppCommand{
 				"--populationSample", "0.5",
 				"--populationSamplingTo", "1.0",
 				"--defaultJspriIterations", "3");
+		
+		List<File> fileData = new ArrayList<>();
+		for (File file : Objects.requireNonNull(output.toFile().listFiles())) {
+			fileData.add(file);
+		}
+		Collections.sort(fileData);
+		File lastFile = fileData.get(fileData.size()-1);
+		String[] argsAnalysis = { lastFile.toString(), "true"};
+		FreightAnalyse.main(argsAnalysis);
 		return 0;
 	}
 }
