@@ -1,5 +1,5 @@
 carrierName	vehicleTypes	numberOfDepots	selectedVehicleDepots	areaOfAdditonalDepots	fixedNumberOfVehilcePerTypeAndLocation	fleetSize	vehicleStartTime	vehicleEndTime	jspritIterations
-droneCarrier1	testDrone1	1	depotLink	Charlottenburg-Wilmersdorf		infinite	28800	30600	10
-droneCarrier2	testDrone1	1	depotLink	Charlottenburg-Wilmersdorf		infinite	28800	30600	10
-droneCarrier3	testDrone1	1	depotLink	Charlottenburg-Wilmersdorf		infinite	28800	30600	10
-droneCarrier4	testDrone1	1	depotLink	Charlottenburg-Wilmersdorf		infinite	28800	30600	10
+droneCarrier1	testDrone1	1	depotLink	Charlottenburg-Wilmersdorf		infinite	28800	72000	300
+droneCarrier2	testDrone1	1	depotLink	Charlottenburg-Wilmersdorf		infinite	28800	72000	300
+droneCarrier3	testDrone1	1	depotLink	Charlottenburg-Wilmersdorf		infinite	28800	72000	300
+droneCarrier4	testDrone1	1	depotLink	Charlottenburg-Wilmersdorf		infinite	28800	72000	300

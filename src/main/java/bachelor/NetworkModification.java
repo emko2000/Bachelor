@@ -27,7 +27,6 @@ public class NetworkModification {
         //drone-network
         Network drone_network = NetworkUtils.createNetwork();
 
-
 		//read shapefile
 		String shapefile = "scenarios/freightDemandGeneration/testShape/Bezirke_-_Berlin/Berlin_Bezirke.shp";
 
@@ -44,7 +43,7 @@ public class NetworkModification {
 		var depot_node_end = network.getFactory().createNode(Id.createNodeId("depot_node_end"), depot_coordinates_end);
         //Add depot to drone-network
 		Link depotLink = network.getFactory().createLink(Id.createLinkId("depotLink"), depot_node_end, depot_node_start);
-		depotLink.setCapacity(20000);
+		depotLink.setCapacity(200000);
 		depotLink.setFreespeed(30);
 		depotLink.setAllowedModes(Set.of("drone"));
 
@@ -82,7 +81,7 @@ public class NetworkModification {
 
                 if (mt.matches()) {
 
-
+					System.out.println("failed");
                 } else {
 
                         counter = counter + 1;
@@ -92,8 +91,8 @@ public class NetworkModification {
 
 						newLink.setAllowedModes(Set.of("drone"));
                         newLinkback.setAllowedModes(Set.of("drone"));
-						newLink.setFreespeed(90);
-						newLinkback.setFreespeed(90);
+						newLink.setFreespeed(100);
+						newLinkback.setFreespeed(100);
 						newLink.setCapacity(20000);
 						newLinkback.setCapacity(20000);
 
@@ -110,9 +109,8 @@ public class NetworkModification {
 
 		}
 
-
 		NetworkUtils.writeNetwork(drone_network, "network_drone.xml.gz");
-		///NetworkUtils.writeNetwork(network, "network_DHL.xml.gz");
+		//NetworkUtils.writeNetwork(network, "network_DHL.xml.gz");
 
 		/*TODO:
 		 *
