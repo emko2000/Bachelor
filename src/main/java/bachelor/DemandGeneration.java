@@ -55,8 +55,8 @@ public class DemandGeneration implements MATSimAppCommand{
 			//brauche ich nicht!!
 			//String populationLocation = "scenarios/freightDemandGeneration/testPopulation.xml";
 			//das neue netzwerk einfügen (mit drohnen)
-			network = "C:\\Users\\Asus\\Documents\\Bachelor3\\network_drone.xml.gz";
-			//network = "C:\\Users\\Asus\\Documents\\Bachelor3\\network_DHL.xml.gz";
+			network = "C:\\Users\\Asus\\Documents\\Bachelor5\\network_drone.xml.gz";
+			//network = "C:\\Users\\Asus\\Documents\\Bachelor5\\network_DHL.xml.gz";
 			//		network = "https://svn.vsp.tu-berlin.de/repos/public-svn/matsim/scenarios/countries/de/berlin/berlin-v5.5-10pct/input/berlin-v5.5-network.xml.gz";
 			//		network = "https://raw.githubusercontent.com/matsim-org/matsim-libs/master/examples/scenarios/freight-chessboard-9x9/grid9x9.xml";
 			combineSimilarJobs = "false";
