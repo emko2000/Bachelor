@@ -90,7 +90,7 @@ public class DemandGeneration implements MATSimAppCommand{
 		}
 		Collections.sort(fileData);
 		File lastFile = fileData.get(fileData.size()-1);
-		String[] argsAnalysis = { lastFile.toString(), "true"};
+		String[] argsAnalysis = { lastFile.toString(), "false"};
 		FreightAnalyse.main(argsAnalysis);
 		return 0;
 	}

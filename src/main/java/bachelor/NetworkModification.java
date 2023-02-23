@@ -44,7 +44,7 @@ public class NetworkModification {
         //Add depot to drone-network
 		Link depotLink = network.getFactory().createLink(Id.createLinkId("depotLink"), depot_node_end, depot_node_start);
 		depotLink.setCapacity(200000);
-		depotLink.setFreespeed(30);
+		depotLink.setFreespeed(9);
 		depotLink.setAllowedModes(Set.of("drone"));
 
 		//Add depot to dhl-network
@@ -52,7 +52,7 @@ public class NetworkModification {
 		var depottest2 = network.getNodes().get(Id.createNodeId(27177345));
 		Link depotLink_dhl = network.getFactory().createLink(Id.createLinkId("depotLink_dhl"),depottest, depottest2);
 		depotLink_dhl.setCapacity(20000);
-		depotLink_dhl.setFreespeed(30);
+		depotLink_dhl.setFreespeed(9);
 		network.addLink(depotLink_dhl);
 
         //Add Drone-Depot to drone_network
@@ -91,8 +91,8 @@ public class NetworkModification {
 
 						newLink.setAllowedModes(Set.of("drone"));
                         newLinkback.setAllowedModes(Set.of("drone"));
-						newLink.setFreespeed(100);
-						newLinkback.setFreespeed(100);
+						newLink.setFreespeed(28);
+						newLinkback.setFreespeed(28);
 						newLink.setCapacity(20000);
 						newLinkback.setCapacity(20000);
 

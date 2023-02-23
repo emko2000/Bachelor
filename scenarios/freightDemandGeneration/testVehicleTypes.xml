@@ -8,14 +8,14 @@
 		<capacity seats="1" standingRoomInPersons="0" other="200.0">
 
 		</capacity>
-		<length meter="7.0"/>
-		<width meter="2.14"/>
+		<length meter="6.0"/>
+		<width meter="1.8"/>
 		<engineInformation>
 			<attributes>
 				<attribute name="HbefaTechnology" class="java.lang.String">diesel</attribute>
 			</attributes>
 		</engineInformation>
-		<costInformation fixedCostsPerDay="82.6" costsPerMeter="6.7E-4" costsPerSecond="0.0049">
+		<costInformation fixedCostsPerDay="83.61" costsPerMeter="1.65E-5" costsPerSecond="0.00313">
 
 		</costInformation>
 		<passengerCarEquivalents pce="1.0"/>
@@ -29,14 +29,14 @@
 		<capacity seats="0" standingRoomInPersons="0" other="1.0">
 
 		</capacity>
-		<length meter="1.5"/>
-		<width meter="1.0"/>
+		<length meter="1.52"/>
+		<width meter="1.98"/>
 		<engineInformation>
 			<attributes>
 				<attribute name="HbefaTechnology" class="java.lang.String">diesel</attribute>
 			</attributes>
 		</engineInformation>
-		<costInformation fixedCostsPerDay="4.11" costsPerMeter="3.9E-6" costsPerSecond="1.1E-4">
+		<costInformation fixedCostsPerDay="10.06" costsPerMeter="2.6E-5" costsPerSecond="0">
 
 		</costInformation>
 		<passengerCarEquivalents pce="1.0"/>
